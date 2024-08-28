@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://545209147.xyz/
+
+# Sitemaps
+Sitemap: https://545209147.xyz/sitemap.xml
