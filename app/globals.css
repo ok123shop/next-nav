@@ -18,4 +18,5 @@
 
 .tooltip:before {
   max-width: 12rem !important;
+  overflow: hidden;
 }
