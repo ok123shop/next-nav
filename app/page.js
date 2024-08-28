@@ -1,5 +1,6 @@
 import Image from "next/image";
 import openService from "@/service/openService";
+import NavCard from "@/components/NavCard";
 
 
 
@@ -9,13 +10,23 @@ function getData() {
           openService.navList(),
           openService.spuList(),
       ]).then(([navList,spuList]) => {
-          spuList.unshift({
-            id:0,
-            title: '美区苹果ID',
-            images:['https://oss.ok123.shop/blob/icons/appstore.png'],
-            displayPrice: '限时免费',
-          })
-          ok({navList,spuList})
+        spuList = spuList.map(spu => {
+          return {
+            id: spu.id,
+            title: spu.title,
+            icon: spu.images[0],
+            description: spu.displayPrice,
+            tags: spu.tags ? spu.tags.split(";") : []
+          };
+        })
+        spuList.unshift({
+          id:0,
+          title: '美区苹果ID',
+          icon:'https://oss.ok123.shop/blob/icons/appstore.png',
+          description: '限时免费',
+          tags: ['免费','可下载小火箭']
+        })
+        ok({navList,spuList})
       })
   })
 }
@@ -30,17 +41,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {
             spuList.map(spu => (
-              <div key={spu.id} className="tooltip tooltip-bottom" data-tip={spu.title}>
-                <a  className="rounded cute shadow-lg box-border border p-4 block   " href={`https://ok123.shop${spu.id ? '/spu/' + spu.id : ''}`} target="_blank">
-                  <div className="flex items-center gap-2">
-                      <Image className=" rounded-full " src={spu.images[0]} width={45} height={45} alt={spu.title}/>
-                      <div className="flex flex-col items-start w-full overflow-hidden">
-                          <p className="font-bold">{spu.title}</p>
-                          <div className="text-sm w-full whitespace-nowrap overflow-hidden text-ellipsis text-red-400 text-left">{spu.displayPrice}</div>
-                      </div>
-                  </div>
-                </a>
-              </div>
+              <NavCard key={spu.id} nav={spu}/>
             ))
           }
         </div>
@@ -54,31 +55,7 @@ export default async function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {
                   item.childList?.map(nav => (
-                    <div key={nav.id} className="tooltip tooltip-bottom" data-tip={nav.description}>
-                      <a className=" rounded cute shadow-lg box-border border  p-4 block " href={nav.url} target="_blank">
-                        <div className="flex items-center gap-2">
-                            {
-                              nav.icon ? 
-                              (
-                                <Image className=" rounded-full " src={nav.icon} width={40} height={40} alt={nav.title}/>
-                              )
-                              :
-                              (
-                                <div className="avatar avatar-sm placeholder">
-                                  <div className="bg-neutral text-neutral-content w-10 rounded-full">
-                                    <span className="text-sm">{nav.title.substring(0,2)}</span>
-                                  </div>
-                                </div>
-                              )
-                            }
-
-                            <div className="flex flex-col items-start w-full overflow-hidden">
-                                <p className="font-bold">{nav.title}</p>
-                                <div className="text-sm w-full text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis text-left">{nav.description}</div>
-                            </div>
-                          </div>
-                      </a>
-                    </div>
+                    <NavCard key={nav.id} nav={nav}/>
                   ))
                 }
               </div>
