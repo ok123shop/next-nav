@@ -26,7 +26,8 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {
             spuList.map(spu => (
-                <a key={spu.id} className="rounded cute shadow-lg box-border border p-4 block " href={`https://ok123.shop/spu/${spu.id}`} target="_blank">
+              <div key={spu.id} className="tooltip tooltip-bottom" data-tip={spu.title}>
+                <a  className="rounded cute shadow-lg box-border border p-4 block " href={`https://ok123.shop/spu/${spu.id}`} target="_blank">
                   <div className="flex items-center gap-2">
                       <Image className=" rounded-full " src={spu.images[0]} width={45} height={45} alt="hello"/>
                       <div className="flex flex-col items-start w-full overflow-hidden">
@@ -35,6 +36,7 @@ export default async function Home() {
                       </div>
                   </div>
                 </a>
+              </div>
             ))
           }
         </div>
