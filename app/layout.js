@@ -20,7 +20,6 @@ export const metadata = {
 
 
 export default async function RootLayout({ children }) {
-
   return (
     <html lang="zh" className="relative w-full h-full box-border" data-theme='light'>
       <body className={`${inter.className} w-full h-full box-border flex flex-col `}>

@@ -3,38 +3,33 @@ import NavCard from "@/components/NavCard";
 import NavMenu from "@/components/NavMenu";
 import MenuLayout from "@/components/layout/MenuLayout";
 
-function getData() {
-  return new Promise((ok,err) => {
-      Promise.all([
-          openService.navList(),
-          openService.spuList(),
-      ]).then(([navList,spuList]) => {
-        spuList = spuList.map(spu => {
-          return {
-            id: spu.id,
-            title: spu.title,
-            icon: spu.images[0],
-            description: spu.displayPrice,
-            url: `https://ok123.shop/spu/${spu.id}`,
-            tags: spu.tags ? spu.tags.split(";") : []
-          };
-        })
-        spuList.unshift({
-          id:0,
-          title: '美区苹果ID',
-          icon:'https://oss.ok123.shop/blob/icons/appstore.png',
-          description: '限时免费',
-          tags: ['免费','可下载小火箭'],
-          url: `https://ok123.shop`,
-        })
-        navList.unshift({
-          id:0,
-          title: "超赞推荐",
-          childList: spuList
-        })
-        ok({navList})
-      })
+async function getData() {
+  let navList = await openService.navList()
+  let spuList = await openService.spuList()
+  spuList = spuList.map(spu => {
+    return {
+      id: spu.id,
+      title: spu.title,
+      icon: spu.images[0],
+      description: spu.displayPrice,
+      url: `https://ok123.shop/spu/${spu.id}`,
+      tags: spu.tags ? spu.tags.split(";") : []
+    };
   })
+  spuList.unshift({
+    id:0,
+    title: '美区苹果ID',
+    icon:'https://oss.ok123.shop/blob/icons/appstore.png',
+    description: '限时免费',
+    tags: ['免费','可下载小火箭'],
+    url: `https://ok123.shop`,
+  })
+  navList.unshift({
+    id:0,
+    title: "超赞推荐",
+    childList: spuList
+  })
+  return {navList}
 }
 
 

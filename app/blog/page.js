@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default async function BlogPage(params) {
     const list = [1,2,3,4,5];
-    
     return(
         <MenuLayout
         menu={<BlogMenu/>}
