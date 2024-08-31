@@ -20,3 +20,13 @@
   max-width: 12rem !important;
   overflow: hidden;
 }
+
+/* 隐藏滚动条但保留滚动功能 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* 对于 Chrome、Safari 和 Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* 对于 IE 和 Edge */
+  scrollbar-width: none;  /* 对于 Firefox */
+}

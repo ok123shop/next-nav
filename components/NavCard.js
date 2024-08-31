@@ -3,13 +3,13 @@ import Image from "next/image";
 
 export default function NavCard({nav}){
     return (
-        <div className="tooltip tooltip-bottom h-full" data-tip={nav.description}>
-            <a className=" rounded cute shadow-lg box-border border  p-4 block h-full" href={nav.url} target="_blank">
-            <div className="flex items-center gap-2 border-b border-dashed pb-2 group">
+        <div className="tooltip tooltip-bottom h-full " data-tip={nav.description}>
+            <a className=" rounded cute shadow-lg box-border border dark:border-gray-800 p-4 block h-full dark:bg-base-300" href={nav.url} target="_blank">
+            <div className="flex items-center gap-2 border-b border-dashed pb-2 group dark:border-gray-600">
                 {
                     nav.icon ? 
                     (
-                    <Image className=" rounded-full " src={nav.icon} width={40} height={40} alt={nav.title}/>
+                    <Image className="rounded-full h-auto w-auto" src={nav.icon} width={40} height={40} alt={nav.title}/>
                     )
                     :
                     (
@@ -29,7 +29,9 @@ export default function NavCard({nav}){
                 <div className=" mt-2 w-full flex items-center gap-2 flex-wrap">
                 {
                     (nav.tags ? Array.isArray(nav.tags) ? nav.tags : nav.tags.split(";") : []).map(tag => (
-                        <div className=" text-sm px-2 border rounded-lg hover:bg-red-400 hover:border-red-300 hover:text-white">{tag}</div>
+                        <div key={tag} className=" text-sm px-2 border rounded-lg hover:bg-red-400 hover:border-red-300 hover:text-white dark:bg-blue-900 dark:border-base-300
+                        dark:hover:bg-blue-400 dark:hover:border-blue-300
+                        ">{tag}</div>
                     ))
                 }
                 </div>
