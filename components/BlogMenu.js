@@ -1,15 +1,15 @@
 'use client'
 import Image from "next/image";
+import { useEffect } from "react";
 
-export default function RootMenu({data}) {
+export default function RootMenu({data,mark}) {
 
-  function markHandler(event, sectionId) {
-    event.preventDefault();
+  function markHandler(sectionId) {
     
-    const element = document.getElementById(`blog_${sectionId}`);
-    const container = document.getElementById('menucontent-warp');
+    const element = document.getElementById(`ac_${sectionId}`);
+    const container = document.getElementById('acwarp');
     const offset = 50; // 距离顶部 50px
-  
+
     if (element && container) {
       const elementRect = element.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
@@ -26,8 +26,11 @@ export default function RootMenu({data}) {
     }
   }
 
+  useEffect(() => {
+    markHandler(mark)
+  },[])
   return (
-      <div className="h-full overflow-hidden flex flex-col z-50  w-full px-4">
+      <div className="h-full overflow-hidden flex flex-col z-50  w-full pb-4">
         <div className="flex flex-col justify-center items-center py-6 gap-4 ">
           <label className="input input-bordered flex items-center gap-2 ">
             <input type="text" className="grow" placeholder="Search" />
@@ -43,33 +46,41 @@ export default function RootMenu({data}) {
             </svg>
           </label>
         </div>
-        <div className="w-full h-full overflow-hidden overflow-y-auto flex-1 flex flex-col items-center gap-4">
-          <ul className="menu bg-base-200 rounded-box w-full">
-            <li>
-              <h2 className="menu-title">Title</h2>
-              <ul>
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
-                <li><a>Item 3</a></li>
-              </ul>
-            </li>
-            <li>
-              <h2 className="menu-title">Title</h2>
-              <ul>
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
-                <li><a>Item 3</a></li>
-              </ul>
-            </li>
-            <li>
-              <h2 className="menu-title">Title</h2>
-              <ul>
-                <li><a>Item 1</a></li>
-                <li><a>Item 2</a></li>
-                <li><a>Item 3</a></li>
-              </ul>
-            </li>
-          </ul>
+        <div id="acwarp" className="w-full h-full overflow-hidden overflow-y-auto flex-1 flex flex-col items-center gap-4 px-4 ">
+            {
+              data.map(item => (
+                <ul key={item.id} className="menu bg-base-200 rounded-box w-full">
+                      <li  key={item.id}>
+                        <h2 className="menu-title">{item.title}</h2>
+                        {
+                          item.childList?.map(child => (
+                            <ul key={child.id} className=" before:content-none p-0 m-0">
+                              <li id={`ac_${child.id}`} >
+                                <a className={`${child.id == mark ? 'active' : null} flex flex-row items-center`} href={`/blog?id=${child.id}`}>
+                                {
+                                  child.icon ? (
+                                    <Image src={child.icon} width={30} height={30} className=" rounded-full h-auto w-auto" alt={child.title}/>
+                                  ) : (
+                                    <div className="avatar placeholder">
+                                      <div className="bg-gray-600 text-neutral-content w-8 rounded-full">
+                                        <span>{child.title[0]}</span>
+                                      </div>
+                                    </div>
+                                  )
+                                }
+                                  
+                                  <span >{child.title}</span>
+                                </a>
+                              </li>
+                            </ul>
+                          ))
+                        }
+                      </li>
+                </ul>
+
+              ))
+            }
+            
         </div>
       </div>
 

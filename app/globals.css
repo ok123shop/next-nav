@@ -30,3 +30,12 @@
   -ms-overflow-style: none;  /* 对于 IE 和 Edge */
   scrollbar-width: none;  /* 对于 Firefox */
 }
+
+.draggable-image {
+  user-drag: none; /* 禁止拖动 */
+  user-select: none; /* 禁止选中 */
+  -webkit-user-drag: none; /* 禁止拖动 (针对 Safari) */
+  -webkit-user-select: none; /* 禁止选中 (针对 Safari) */
+  -moz-user-select: none; /* 禁止选中 (针对 Firefox) */
+  -ms-user-select: none; /* 禁止选中 (针对 IE10+) */
+}

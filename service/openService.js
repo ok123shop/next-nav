@@ -58,6 +58,22 @@ const service = {
         let api = "/open/content/nav-base/list"
         return await HTTP.get(api,{cache: "no-store",params})
     },
+    async articleCategoriesList(params){
+        let api = "/open/content/article-categories/list"
+        return await HTTP.get(api,{cache: "no-store",params})
+    },    
+    async articleCategoriesGet(params){
+        let api = "/open/content/article-categories/get"
+        return await HTTP.get(api,{cache: "no-store",params})
+    },
+    async articleBasePage(params){
+        let api = "/open/content/article-base/page"
+        return await HTTP.get(api,{cache: "no-store",params})
+    },
+    async articleBaseGet(params){
+        let api = "/open/content/article-base/get"
+        return await HTTP.get(api,{cache: "no-store",params})
+    },
    
 }
 
