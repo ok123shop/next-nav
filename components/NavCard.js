@@ -6,20 +6,22 @@ export default function NavCard({nav}){
         <div className="tooltip tooltip-bottom h-full " data-tip={nav.description}>
             <a className=" rounded cute shadow-lg box-border border dark:border-gray-800 p-4 block h-full dark:bg-base-300" href={nav.url} target="_blank">
             <div className="flex items-center gap-2 border-b border-dashed pb-2 group dark:border-gray-600">
-                {
-                    nav.icon ? 
-                    (
-                    <Image className="rounded-full h-auto w-auto" src={nav.icon} width={40} height={40} alt={nav.title}/>
-                    )
-                    :
-                    (
-                    <div className="avatar avatar-sm placeholder">
-                        <div className="bg-neutral text-neutral-content w-10 rounded-full">
-                        <span className="text-sm">{nav.title.substring(0,2)}</span>
-                        </div>
-                    </div>
-                    )
-                }
+  
+                <div className="avatar avatar-sm placeholder ">
+                    {
+                        nav.icon ? (
+                            <div className="w-10 rounded-full ">
+                                <img className="rounded-full w-full h-full" src={nav.icon}  alt={nav.title} />
+                            </div>
+                        ):
+                        (
+                            <div className="bg-neutral text-neutral-content w-10 rounded-full">
+                                <span className="text-sm">{nav.title.substring(0,2)}</span>
+                            </div>
+                        )
+                    }
+                   
+                </div>
 
                 <div className="flex flex-col items-start w-full overflow-hidden">
                     <p className="font-bold group-hover:text-red-400">{nav.title}</p>
