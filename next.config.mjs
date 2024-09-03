@@ -17,6 +17,11 @@ const nextConfig = {
               hostname: 'cdn2.yicanggongyi.com',
               port: '',
               pathname: '/**',
+            }, {
+              protocol: 'https',
+              hostname: 'www.bilibili.com',
+              port: '',
+              pathname: '/**',
             },
           ],
     },

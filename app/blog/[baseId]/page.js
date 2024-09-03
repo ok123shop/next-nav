@@ -24,13 +24,41 @@ function extractHeadings(mdxContent) {
     return headings;
 }
 
+function testData(){
+  return {
+    title: "test",
+    categoriesList: [],
+    tagList: [],
+    contents: `
+      # H1
+      ## H2
+      ### H3
+      #### H4
+      \`\`\`
+      123
+      \`\`\`
+      video::bilibili::BV1ui421k7nc
 
-export async function generateMetadata({params}) {
-  let {baseId} = params;
+    `
+  }
+}
+
+
+async function getData(baseId){
+  if(baseId < 1){
+    return testData(baseId);
+  }
   let data = await openService.articleBaseGet({id: baseId});
   if(!data){
       notFound()
   }
+  return data;
+}
+
+
+export async function generateMetadata({params}) {
+  let {baseId} = params;
+  let data = await getData(baseId)
 
   return {
       title: data.title,
@@ -43,13 +71,12 @@ export async function generateMetadata({params}) {
 
 export default async function BlogDetail({params}) {
     let {baseId} = params;
-    let data = await openService.articleBaseGet({id: baseId});
-    if(!data){
-        notFound()
-    }
+    let data = await getData(baseId)
     const source = data.contents;
     let navList = extractHeadings(source);
     navList.unshift({level: 1, text: data.title})
+
+
 
     return(
         <MenuLayout
@@ -66,14 +93,14 @@ export default async function BlogDetail({params}) {
                     ) : null
                   }
                   {
-                        data.categoriesList.map((e) => (
+                        data.categoriesList?.map((e) => (
                           <div key={e.id} className=" rounded px-2 bg-blue-300 text-white">
                             { e.title }
                           </div>
                         ))
                       }
                     {
-                        data.tagList.map((e) => (
+                        data.tagList?.map((e) => (
                           <div key={e.id} className=" rounded px-2 bg-red-300 text-white">
                             { e.title }
                           </div>
@@ -83,7 +110,9 @@ export default async function BlogDetail({params}) {
                   <p className="text-sm text-gray-400">
                     更新于 {data.updateDateTime}
                   </p>
-                <Image src={data.cover} width={1600} height={900} alt={data.title} className="w-full h-auto"/>
+
+                
+                {data.cover ? (<Image src={data.cover} width={1600} height={900} alt={data.title} className="w-full h-auto"/>) : null}
                 <MDXRemote source={source} components={MDXStyle}/>
             </div>
         </MenuLayout>
