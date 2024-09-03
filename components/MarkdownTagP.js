@@ -8,7 +8,8 @@ const split_flag = "::";
 
 export default function PreviewsImage(props) {
     let {children} = props;
-    let isVideo = children && children.startsWith(video_flag);
+    console.log(children)
+    let isVideo = children && typeof children === 'string' && children.startsWith(video_flag);
     let [_,platforms,id] = isVideo ? children.split(split_flag) : [];
 
     console.log(_,platforms,id)
