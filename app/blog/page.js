@@ -5,6 +5,12 @@ import Image from "next/image";
 import openService from "@/service/openService";
 
 
+export const metadata = {
+    title: "一一导航-博客",
+    description: "一一导航收藏了非常的实用站点，还有很多的技术分享",
+};
+
+  
 
 export default async function BlogPage({params,searchParams}) {
 

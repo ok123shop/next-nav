@@ -24,6 +24,23 @@ function extractHeadings(mdxContent) {
     return headings;
 }
 
+
+export async function generateMetadata({params}) {
+  let {baseId} = params;
+  let data = await openService.articleBaseGet({id: baseId});
+  if(!data){
+      notFound()
+  }
+
+  return {
+      title: data.title,
+      keywords: data.keyword,
+      description: data.description
+  };
+}
+
+
+
 export default async function BlogDetail({params}) {
     let {baseId} = params;
     let data = await openService.articleBaseGet({id: baseId});
@@ -38,7 +55,7 @@ export default async function BlogDetail({params}) {
         <MenuLayout
             menu={<BlogDetailMenu navList={navList}/>}
         >
-            <div className="prose  bg-white py-20  px-4 sm:px-0">
+            <div className="prose  bg-white py-20 ">
                 <h1 id={`bd_${data.title}`}>{data.title}</h1>
                 <div className="!my-2 text-sm text-gray-500 flex gap-2 items-center">
                   {

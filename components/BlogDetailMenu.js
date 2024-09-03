@@ -36,8 +36,9 @@ export default function BlogDetailMenu({navList}) {
                         key={index} 
                         onClick={() => markHandler(item.text)}
                         className={`
-                            ${item.level == 1 ? ' text' : item.level == 2 ? 'pl-4  text-md' : 'pl-8  text-sm'} 
-                            hover:bg-blue-100 duration-100 rounded p-2 text-ellipsis overflow-hidden text-nowrap
+                            text-sm
+                            ${item.level == 1 ? ' text' : item.level == 2 ? 'pl-10  text-sm' : 'pl-16  text-sm'} 
+                            hover:bg-blue-100 duration-100 rounded p-1 text-ellipsis overflow-hidden text-nowrap
                             cursor-pointer
                         `}
                     >

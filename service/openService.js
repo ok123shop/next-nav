@@ -74,6 +74,10 @@ const service = {
         let api = "/open/content/article-base/get"
         return await HTTP.get(api,{cache: "no-store",params})
     },
+    async articleBaseBaseIdList(params){
+        let api = "/open/content/article-base/baseIdList"
+        return await HTTP.get(api,{cache: "no-store",params})
+    },
    
 }
 
