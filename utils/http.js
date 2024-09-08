@@ -11,7 +11,10 @@ const
         
         let {cache,revalidate,cookies} = config || {};
         if(cache) def.cache = cache;
-        if(revalidate) def.next.revalidate = revalidate;
+        if(revalidate) {
+            delete def.cache;
+            def.next.revalidate = revalidate;
+        }
         if(cookies) {
             def.headers = {}
             def.headers["Cookie"] = cookies;
@@ -45,11 +48,13 @@ const
 const
 
     get = async (api,config) => {
+        console.log(`[GET] api:${api} config:${JSON.stringify(config || {})}`)
         const url = getHost() + api + (api.indexOf("?") > -1 ? '&' : "?") + initQuery(config);
         let resp = await fetch(url,initNextFetchConfig(config)).then((res) => res.json());
         return config.originalResult ? resp : resp.data;
     },
     post = async (api,config) => {
+        console.log(`[POST] api:${api} config:${config}`)
         const url = getHost() + api;
         const body = JSON.stringify(config.params || {});
         const params = {

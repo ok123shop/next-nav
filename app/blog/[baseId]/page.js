@@ -56,6 +56,17 @@ async function getData(baseId){
 }
 
 
+// app/[id]/page.js
+export async function generateStaticParams() {
+  let baseIdList = await openService.articleBaseBaseIdList();
+  // 返回这些 id 的路径
+  return baseIdList.map((item) => ({
+      baseId: item.toString()
+  }));
+}
+
+
+
 export async function generateMetadata({params}) {
   let {baseId} = params;
   let data = await getData(baseId)
@@ -66,6 +77,7 @@ export async function generateMetadata({params}) {
       description: data.description
   };
 }
+
 
 
 

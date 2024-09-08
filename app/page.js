@@ -34,7 +34,7 @@ async function getData() {
 
 
 export default async function Home() {
-  let {navList,spuList} = await getData();
+  let {navList} = await getData();
   return (
     <MenuLayout
       menu={<NavMenu data={navList}/>}

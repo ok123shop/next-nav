@@ -21,4 +21,15 @@ function copy(value){
     }
 }
 
-export default {copy}
+function splitArray(arr, chunkSize) {
+    let result = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      // 使用 slice 切分数组
+      result.push(arr.slice(i, i + chunkSize));
+    }
+    return result;
+  }
+
+
+
+export default {copy,splitArray}
